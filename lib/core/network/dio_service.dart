@@ -98,7 +98,7 @@ class DioService {
               //     response: Response(requestOptions: RequestOptions(path: ''), statusCode: errorResponse.code, data: "data", statusMessage: errorResponse.message)
               //   ));
               //   return Future.error(Exception('e'));
-              //   // handler.next(response);
+              handler.next(response);
               // }
             } else {
               ErrorResponse errorResponse = ErrorResponse.fromJson(response.data);
@@ -192,8 +192,11 @@ class DioService {
       headers: isToken
         ? {
             'Cache-Control': AppConfig.cacheControl,
-            // 'Content-Type': AppConfig.contentType,
-            // 'X-Token-Secret': AuthService.authBox.secret
+            'Content-Type': AppConfig.contentType,
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE', // If needed
+            'Access-Control-Allow-Headers': 'X-Requested-With,content-type', // If needed
+            'Access-Control-Allow-Credentials': true // If  needed
           }
         : {
             'Cache-Control': AppConfig.cacheControl,

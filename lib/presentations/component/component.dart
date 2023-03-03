@@ -2,6 +2,8 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:sanninstore/core/app/app.dart';
 
+import 'jumping_dots.dart';
+
 class Component {
 
   static final Component _singleton = Component._internal();
@@ -34,6 +36,12 @@ class Component {
         fontSize: fontSize.toDouble(),
         overflow: TextOverflow.ellipsis,
       ),
+    );
+  }
+
+  static loading(){
+    return const Center(
+      child: JumpingDots()  
     );
   }
 

@@ -1,12 +1,22 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:nav_router/nav_router.dart';
+import 'package:sanninstore/core/network/dio_service.dart';
 import 'package:sanninstore/core/util/core_function.dart';
 
 import 'presentations/home/view/home_view.dart';
 
-void main() {
+Future<void> main() async {
+  await init();
   runApp(const MyApp());
+}
+
+init() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = MyHttpOverrides();
+  await DioService.setupDio();
 }
 
 class MyApp extends StatefulWidget {
@@ -41,5 +51,13 @@ class _MyAppState extends State<MyApp> {
       ),
       home: const HomeView(),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }

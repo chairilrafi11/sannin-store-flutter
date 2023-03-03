@@ -16,9 +16,6 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    var document =
-      '<html><ol><li>Masukkan&nbsp;<span style="font-weight: bolder;">ID (SERVER)</span></li><li>Pilih&nbsp;<span style="font-weight: bolder;">Nominal&nbsp;</span>Diamond</li><li>Pilih&nbsp;<span style="font-weight: bolder;">Metode Pembayaran</span></li><li>Tulis&nbsp;<span style="font-weight: bolder;">nomor WhatsApp</span>&nbsp;yg benar!</li><li>Klik&nbsp;<span style="font-weight: bolder;">Beli&nbsp;</span>&amp; lakukan Pembayaran</li><li>Diamond akan masuk otomatis ke akun anda</li></ol></html>';
-  // print(document.outerHtml);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorPalette.primary,
@@ -40,7 +37,7 @@ class HomeView extends StatelessWidget {
           ),
         ],
         child: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
+          builder: (contextState, state) {
             switch (state.homeStateStatus) {
               case HomeStateStatus.loading:
                 return Component.loading();
@@ -62,7 +59,6 @@ class HomeView extends StatelessWidget {
                         colors: ColorPalette.black,
                         fontSize: 20
                       ),
-                      HtmlWidget(document),
                       Container(
                         height: 10,
                         width: 20,
@@ -80,52 +76,55 @@ class HomeView extends StatelessWidget {
                         ),
                         itemCount: state.listCategory.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Card(
-                            shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10)
-                                    ),
-                                    child: Image.asset(
-                                      ImageUsecase.imageProduct(state.listCategory[index].kode),
-                                      height: double.infinity,
-                                      width: double.infinity,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Component.text(
-                                  state.listCategory[index].nama ?? "",
-                                  textAlign: TextAlign.center,
-                                  fontWeight: FontWeight.bold,
-                                  colors: ColorPalette.blackText
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: InkWell(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        color: ColorPalette.primary,
-                                        borderRadius: BorderRadius.circular(10)
+                          return InkWell(
+                            onTap: (() =>  contextState.read<HomeCubit>().onNavDetail(state.listCategory[index])),
+                            child: Card(
+                              shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10)
                                       ),
-                                      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                                      child: Component.text("Top Up", colors: ColorPalette.white),
+                                      child: Image.asset(
+                                        ImageUsecase.imageProduct(state.listCategory[index].kode),
+                                        height: double.infinity,
+                                        width: double.infinity,
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
-                                )
-                              ],
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Component.text(
+                                    state.listCategory[index].nama ?? "",
+                                    textAlign: TextAlign.center,
+                                    fontWeight: FontWeight.bold,
+                                    colors: ColorPalette.blackText
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: InkWell(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: ColorPalette.primary,
+                                          borderRadius: BorderRadius.circular(10)
+                                        ),
+                                        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                        child: Component.text("Top Up", colors: ColorPalette.white),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           );
                         },

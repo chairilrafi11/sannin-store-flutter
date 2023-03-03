@@ -13,4 +13,9 @@ abstract class DioClient {
   @GET(Endpoint.categories)
   Future<ResponseAPI> categories();
 
+  @GET(Endpoint.product)
+  Future<ResponseAPI> products(
+    @Query('kode') String kode
+  );
+
 }

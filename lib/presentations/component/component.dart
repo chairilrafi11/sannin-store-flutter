@@ -81,39 +81,39 @@ class Component {
   //   ),
   // );
 
-  // static decorationNoBorder(String hint, {IconData? iconPrefix}) => InputDecoration(
-  //   fillColor: ColorPalette.grey.withAlpha(30),
-  //   filled: true,
-  //   border: OutlineInputBorder(
-  //     borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
-  //     borderRadius: BorderRadius.circular(10)
-  //   ),
-  //   enabledBorder: OutlineInputBorder(
-  //     borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
-  //     borderRadius: BorderRadius.circular(10)
-  //   ),
-  //   focusedBorder: OutlineInputBorder(
-  //     borderRadius: BorderRadius.circular(10.0),
-  //     borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
-  //   ),
-  //   errorBorder: OutlineInputBorder(
-  //     borderRadius: BorderRadius.circular(10.0),
-  //     borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
-  //   ),
-  //   disabledBorder: OutlineInputBorder(
-  //     borderRadius: BorderRadius.circular(10.0),
-  //     borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
-  //   ),
-  //   prefixIcon: iconPrefix != null ? Icon(
-  //     iconPrefix,
-  //     color: ColorPalette.primary,
-  //     size: 30,
-  //   ) : null,
-  //   counterText: "",
-  //   hintText: hint,
-  //   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-  //   hintStyle: const TextStyle(fontSize: 12.0, color: ColorPalette.textGrey, fontWeight: FontWeight.w500)
-  // );
+  static decorationNoBorder(String hint, {IconData? iconPrefix}) => InputDecoration(
+    fillColor: ColorPalette.grey.withAlpha(30),
+    filled: true,
+    border: OutlineInputBorder(
+      borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
+      borderRadius: BorderRadius.circular(10)
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
+      borderRadius: BorderRadius.circular(10)
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+      borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+      borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
+    ),
+    disabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+      borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
+    ),
+    prefixIcon: iconPrefix != null ? Icon(
+      iconPrefix,
+      color: ColorPalette.primary,
+      size: 30,
+    ) : null,
+    counterText: "",
+    hintText: hint,
+    contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+    hintStyle: const TextStyle(fontSize: 12.0, color: ColorPalette.textGrey, fontWeight: FontWeight.w500)
+  );
 
   static button({required String label, required VoidCallback? onPressed, Color color = ColorPalette.primary}){
     return ElevatedButton(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:sanninstore/core/app/app.dart';
 import 'package:sanninstore/core/util/size_config.dart';
 import 'package:sanninstore/presentations/banner/cubit/banner_cubit.dart';
@@ -15,6 +16,9 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    var document =
+      '<html><ol><li>Masukkan&nbsp;<span style="font-weight: bolder;">ID (SERVER)</span></li><li>Pilih&nbsp;<span style="font-weight: bolder;">Nominal&nbsp;</span>Diamond</li><li>Pilih&nbsp;<span style="font-weight: bolder;">Metode Pembayaran</span></li><li>Tulis&nbsp;<span style="font-weight: bolder;">nomor WhatsApp</span>&nbsp;yg benar!</li><li>Klik&nbsp;<span style="font-weight: bolder;">Beli&nbsp;</span>&amp; lakukan Pembayaran</li><li>Diamond akan masuk otomatis ke akun anda</li></ol></html>';
+  // print(document.outerHtml);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorPalette.primary,
@@ -58,6 +62,7 @@ class HomeView extends StatelessWidget {
                         colors: ColorPalette.black,
                         fontSize: 20
                       ),
+                      HtmlWidget(document),
                       Container(
                         height: 10,
                         width: 20,

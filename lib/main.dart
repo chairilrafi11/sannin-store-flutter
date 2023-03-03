@@ -5,7 +5,6 @@ import 'package:logging/logging.dart';
 import 'package:nav_router/nav_router.dart';
 import 'package:sanninstore/core/network/dio_service.dart';
 import 'package:sanninstore/core/util/core_function.dart';
-import 'package:sanninstore/core/util/size_config.dart';
 
 import 'presentations/home/view/home_view.dart';
 

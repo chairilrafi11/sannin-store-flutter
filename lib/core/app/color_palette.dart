@@ -10,7 +10,7 @@ class ColorPalette {
 
   ColorPalette._internal();
 
-  static const Color primary = Color(0xFFD61355);
+  static const Color primary = Color(0xFFDF2E38);
   static const Color secondary = Color(0xFFDF2E38);
   static const Color pinkShade = Color(0xFFF5D4E0);
   static const Color pinkButtonBackground = Color(0xFFFFDFEB);

@@ -41,7 +41,7 @@ class BannerAdvertiseView extends StatelessWidget {
                   builder: (BuildContext context) {
                     return Image.asset(
                       i,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                       width: SizeConfig.blockSizeHorizontal * 100,
                       height: SizeConfig.blockSizeVertical * 25,
                     );

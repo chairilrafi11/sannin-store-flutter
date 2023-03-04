@@ -8,6 +8,7 @@ import 'package:sanninstore/presentations/banner/cubit/banner_cubit.dart';
 import 'package:sanninstore/presentations/banner/view/banner_advertise_view.dart';
 import 'package:sanninstore/presentations/component/component.dart';
 import 'package:sanninstore/presentations/component/image_usecase.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../cubit/home_cubit.dart';
 
@@ -15,7 +16,7 @@ class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
   int countTotalGrid(double width) {
-    if (width >= 800) {
+    if (width >= Constant.maxWIdth) {
       return 5;
     } else if (width >= 600){
       return 4;
@@ -27,7 +28,7 @@ class HomeView extends StatelessWidget {
   double getButonMargin (double width) {
     switch (countTotalGrid(width)) {
       case 5:
-        return (800 / 90);
+        return (Constant.maxWIdth / 90);
       case 4:
         return (width / 80);
       default:
@@ -97,16 +98,117 @@ class HomeView extends StatelessWidget {
           builder: (contextState, state) {
             switch (state.homeStateStatus) {
               case HomeStateStatus.loading:
-                return Component.loading();
+                return LayoutBuilder(
+                  builder: (context, constraints) {
+                    double width = constraints.maxWidth;
+                    double padding = (width - Constant.maxWIdth) / 2;
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: (width > Constant.maxWIdth) ? padding : 0),
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.white54,
+                        highlightColor: Colors.white,
+                        child: ListView(
+                          // mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox(height: 10,),
+                            Container(
+                              width: double.infinity,                 
+                              height: SizeConfig.blockSizeVertical * 25,
+                              color: ColorPalette.grey,
+                            ),
+                            const SizedBox(height: 10,),
+                            Container(
+                              width: double.infinity,                 
+                              height: SizeConfig.blockSizeVertical * 10,
+                              color: ColorPalette.grey,
+                            ),                     
+                            const SizedBox(height: 10,),
+                            Flexible(
+                              child: GridView.builder(
+                                shrinkWrap: true,
+                                itemCount: 15,
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: countTotalGrid(width),
+                                  childAspectRatio: (1/1),
+                                  mainAxisSpacing: 50,
+                                  crossAxisSpacing: 10
+                                ),
+                                itemBuilder: (context, index){
+                                  return LayoutBuilder(
+                                  builder: (BuildContext context, BoxConstraints boxConstraints) {
+                                    final height = boxConstraints.maxHeight;
+                                    final width = boxConstraints.maxWidth;
+                                    return Stack(
+                                      alignment: Alignment.topCenter,
+                                      children: [
+                                        Container(
+                                          height: height,
+                                          margin: EdgeInsets.only(top: height / 3),
+                                          // padding: const EdgeInsets.only(top: 10),
+                                          child: Card(
+                                            shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(5.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Container(
+                                                      margin: const EdgeInsets.only(top: 10),
+                                                      alignment: Alignment.center,
+                                                    )
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: InkWell(
+                                                      child: Container(
+                                                        alignment: Alignment.center,
+                                                        width: double.infinity,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: ColorPalette.white,
+                                              borderRadius: BorderRadius.circular(20)
+                                            ),
+                                            height: height / 2,
+                                            width: height / 2,
+                                            // fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                );
               case HomeStateStatus.success:
                 return LayoutBuilder(
                   builder: (context, constraints) {
                     double width = constraints.maxWidth;
-                    double padding = (width - 1200) / 2;
+                    double padding = (width - Constant.maxWIdth) / 2;
                     return ListView(
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: (width > 800) ? padding : 0),
+                          padding: EdgeInsets.symmetric(horizontal: (width > Constant.maxWIdth) ? padding : 0),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -121,7 +223,7 @@ class HomeView extends StatelessWidget {
                             const SizedBox(
                               height: 30,
                             ),
-                            SizedBox(height: 20,),
+                            // SizedBox(height: 20,),
                             Card(
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                               child: Padding(
@@ -132,16 +234,17 @@ class HomeView extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 30,),
                             Container(
                               alignment: Alignment.centerLeft,
                               padding: const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Component.text(
                                 "Top Up",
-                                fontWeight: FontWeight.bold,
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: Constant.montserratExtraBold,
                                 colors: ColorPalette.black,
                                 textAlign: TextAlign.left,
-                                fontSize: 20
+                                fontSize: 30
                               ),
                             ),
                             Container(
@@ -150,7 +253,7 @@ class HomeView extends StatelessWidget {
                               margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                               color: ColorPalette.primary,
                             ),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             Flexible(
                               child: GridView(
                                 shrinkWrap: true,

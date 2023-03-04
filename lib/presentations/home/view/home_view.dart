@@ -13,8 +13,30 @@ import '../cubit/home_cubit.dart';
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
+  int countTotalGrid(double width) {
+    if (width >= 800) {
+      return 5;
+    } else if (width >= 600){
+      return 4;
+    } else {
+      return 3;
+    }
+  }
+
+  double getButonMargin (double width) {
+    switch (countTotalGrid(width)) {
+      case 5:
+        return (800 / 90);
+      case 4:
+        return (width / 80);
+      default:
+        return (width / 60);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
@@ -111,9 +133,9 @@ class HomeView extends StatelessWidget {
                         GridView.builder(
                           shrinkWrap: true,
                           padding: const EdgeInsets.symmetric(horizontal: 20),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             childAspectRatio: (1 / 1.5),
-                            crossAxisCount: 4,
+                            crossAxisCount: countTotalGrid(width),
                             mainAxisSpacing: 5,
                             crossAxisSpacing: 5
                           ),
@@ -141,31 +163,34 @@ class HomeView extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Component.text(
-                                      state.listCategory[index].nama ?? "",
-                                      textAlign: TextAlign.center,
-                                      fontWeight: FontWeight.bold,
-                                      colors: ColorPalette.blackText
-                                    ),
                                     Expanded(
                                       flex: 1,
-                                      child: InkWell(
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                            color: ColorPalette.primary,
-                                            borderRadius: BorderRadius.circular(10)
-                                          ),
-                                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                                          child: Component.text("Top Up", colors: ColorPalette.white),
-                                        ),
-                                      ),
-                                    )
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Component.text(
+                                          state.listCategory[index].nama ?? "",
+                                          textAlign: TextAlign.center,
+                                          fontWeight: FontWeight.bold,
+                                          colors: ColorPalette.blackText
+                                        )
+                                      )
+                                    ),
+                                    // Expanded(
+                                    //   flex: 1,
+                                    //   child: InkWell(
+                                    //     child: Container(
+                                    //       alignment: Alignment.center,
+                                    //       width: double.infinity,
+                                    //       decoration: BoxDecoration(
+                                    //         color: ColorPalette.primary,
+                                    //         borderRadius: BorderRadius.circular(10)
+                                    //       ),
+                                    //       margin: EdgeInsets.symmetric(vertical: getButonMargin(width), horizontal: 10),
+                                    //       padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                                    //       child: Component.text("Top Up", colors: ColorPalette.white),
+                                    //     ),
+                                    //   ),
+                                    // )
                                   ],
                                 ),
                               ),

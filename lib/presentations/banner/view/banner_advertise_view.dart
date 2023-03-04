@@ -18,7 +18,6 @@ class BannerAdvertiseView extends StatelessWidget {
   ];
 
   double bannerSize (double width) {
-    print(width);
     if (width < 800) {
       return width / 2.7;
     } else {

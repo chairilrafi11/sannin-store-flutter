@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:nav_router/nav_router.dart';
@@ -46,6 +47,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Sannin Store',
       navigatorKey: navGK,
+      builder: BotToastInit(), //1. call BotToastInit
+      navigatorObservers: [BotToastNavigatorObserver()], 
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

@@ -26,6 +26,39 @@ class HomeView extends StatelessWidget {
           fontSize: 25,
           colors: ColorPalette.white
         ),
+        actions: [
+           PopupMenuButton(
+          // add icon, by default "3 dot" icon
+          // icon: Icon(Icons.book)
+          itemBuilder: (context){
+            return [
+                  PopupMenuItem<int>(
+                      value: 0,
+                      child: Text("My Account"),
+                  ),
+
+                  PopupMenuItem<int>(
+                      value: 1,
+                      child: Text("Settings"),
+                  ),
+
+                  PopupMenuItem<int>(
+                      value: 2,
+                      child: Text("Logout"),
+                  ),
+              ];
+          },
+          onSelected:(value){
+            if(value == 0){
+                print("My account menu is selected.");
+            }else if(value == 1){
+                print("Settings menu is selected.");
+            }else if(value == 2){
+                print("Logout menu is selected.");
+            }
+          }
+        ),
+        ],
       ),
       body: MultiBlocProvider(
         providers: [
@@ -43,31 +76,37 @@ class HomeView extends StatelessWidget {
                 return Component.loading();
               case HomeStateStatus.success:
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
                   child: ListView(
                     children: [
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        child: BannerAdvertiseView()
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
-                      BannerAdvertiseView(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Component.text(
-                        "Top Up",
-                        fontWeight: FontWeight.bold,
-                        colors: ColorPalette.black,
-                        fontSize: 20
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Component.text(
+                          "Top Up",
+                          fontWeight: FontWeight.bold,
+                          colors: ColorPalette.black,
+                          fontSize: 20
+                        ),
                       ),
                       Container(
                         height: 10,
                         width: 20,
-                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                         color: ColorPalette.primary,
                       ),
                       GridView.builder(
                         shrinkWrap: true,
-                        padding: const EdgeInsets.symmetric(horizontal: 0),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           childAspectRatio: (1 / 1.5),
                           crossAxisCount: 4,
@@ -129,6 +168,8 @@ class HomeView extends StatelessWidget {
                           );
                         },
                       ),
+                      const SizedBox(height: 50,),
+                      Component.footer()
                     ],
                   ),
                 );
@@ -137,7 +178,14 @@ class HomeView extends StatelessWidget {
             }
           },
         ),
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: ColorPalette.primary,
+        child: Icon(Icons.contact_support),
+        onPressed: (){
+          Component.toastNotification("Ahohoyyy");
+        }
+      ),
     );
   }
 }

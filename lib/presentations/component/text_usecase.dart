@@ -3,7 +3,7 @@ class TextUsecase {
   static String guideProduct(String? name) {
     switch (name) {
       case "mobile-legends":
-        return "assets/images/ml.png";
+        return '<ol><li>Masukkan&nbsp;<span style="font-weight: bolder;">ID (SERVER)</span></li><li>Pilih&nbsp;<span style="font-weight: bolder;">Nominal&nbsp;</span>Diamond</li><li>Pilih&nbsp;<span style="font-weight: bolder;">Metode Pembayaran</span></li><li>Tulis&nbsp;<span style="font-weight: bolder;">nomor WhatsApp</span>&nbsp;yg benar!</li><li>Klik&nbsp;<span style="font-weight: bolder;">Beli&nbsp;</span>&amp; lakukan Pembayaran</li><li>Diamond akan masuk otomatis ke akun anda</li></ol>';
       case "call-of-duty-mobile":
         return "assets/images/cod.png";
       case "free-fire2":
@@ -45,7 +45,7 @@ class TextUsecase {
       case "valorant2":
         return "assets/images/valorant.png";
       case "league-of-legends-wr":
-        return "assets/images/wild_rift.jpg";
+        return '<ol><li>Masukkan Riot&nbsp;<span style="font-weight: bolder;">ID</span></li><li>Pilih&nbsp;<span style="font-weight: bolder;">Nominal&nbsp;</span>Wild Core</li><li>Pilih&nbsp;<span style="font-weight: bolder;">Metode Pembayaran</span></li><li>Tulis&nbsp;<span style="font-weight: bolder;">nomor WhatsApp</span>&nbsp;yg benar!</li><li>Klik&nbsp;<span style="font-weight: bolder;">Beli&nbsp;</span>&amp; lakukan Pembayaran</li><li>Wild Core akan masuk otomatis ke akun Anda.</li></ol>';
       case "arena-of-valor2":
         return "assets/images/aov.png";
       case "ragnarok-m-eternal-love":

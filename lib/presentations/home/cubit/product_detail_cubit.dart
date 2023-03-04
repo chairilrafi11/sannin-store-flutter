@@ -23,4 +23,8 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
     ));
   }
 
+  onClikProduct(String kode) {
+    emit(state.copyWith(productCode: kode));
+  }
+
 }

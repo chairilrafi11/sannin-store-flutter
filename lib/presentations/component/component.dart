@@ -158,5 +158,92 @@ class Component {
       )
     );
   }
+  
+  static toastNotification(String message, {Color color = Colors.transparent}){
+    BotToast.showNotification(
+      backgroundColor: ColorPalette.white,
+      
+      // textStyle: const TextStyle(
+      //   color: ColorPalette.black, 
+      //   fontWeight: FontWeight.bold,
+      //   fontFamily: Constant.montserratRegular
+      // ),
+    );
+  }
+
+  static footer() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          decoration: BoxDecoration(
+            color: ColorPalette.primary,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Component.text(
+                      "SANNIN STORE",
+                      colors: ColorPalette.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold
+                    ),
+                    const SizedBox(height: 20,),
+                    Component.text(
+                      "mau topup game murah, cepat, aman dan terpecaya? di sini tempatnya",
+                      colors: ColorPalette.white
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Component.text(
+                      "",
+                      colors: ColorPalette.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold
+                    ),
+                    const SizedBox(height: 20,),
+                    Component.text(
+                      "mau topup game murah, cepat, aman dan terpecaya? di sini tempatnya",
+                      colors: ColorPalette.white
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          color: ColorPalette.primary,
+          child: Component.text(
+            "© 2023 Copyright SANNIN STORE",
+            textAlign: TextAlign.center,
+            colors: ColorPalette.white
+          ),
+        ),
+      ],
+    );
+  }
 
 }

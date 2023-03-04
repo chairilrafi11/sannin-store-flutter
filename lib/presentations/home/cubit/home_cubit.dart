@@ -24,7 +24,7 @@ class HomeCubit extends Cubit<HomeState> {
     routePush(BlocProvider(
       create: (context) => ProductDetailCubit(categories: categories),
       child: const ProductDetialView(),
-    ));
+    ), RouterType.fade);
   }
 
 }

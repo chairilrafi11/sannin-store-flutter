@@ -24,10 +24,11 @@ class ProductDetialView extends StatelessWidget {
           colors: ColorPalette.white
         ),
       ),
+      backgroundColor: ColorPalette.whiteBackground,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: BlocBuilder<ProductDetailCubit, ProductDetailState>(
-          builder: (context, state) {
+          builder: (contextState, state) {
             switch (state.productDetailStateStatus) {
               case ProductDetailStateStatus.loading:
                 return Component.loading();
@@ -37,10 +38,11 @@ class ProductDetialView extends StatelessWidget {
                     const SizedBox(height: 10,),
                     Card(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            const SizedBox(height: 10,),
                             ClipRRect(
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(10),
@@ -48,8 +50,8 @@ class ProductDetialView extends StatelessWidget {
                               ),
                               child: Image.asset(
                                 ImageUsecase.imageProduct(state.categories?.kode),
-                                height: double.infinity,
-                                width: double.infinity,
+                                height: 150,
+                                width: 150,
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -57,16 +59,18 @@ class ProductDetialView extends StatelessWidget {
                             Component.text(
                               state.categories?.nama ?? "",
                               textAlign: TextAlign.center,
+                              fontSize: 25,
                               fontWeight: FontWeight.bold,
                               colors: ColorPalette.blackText
                             ),
                             const SizedBox(height: 20,),
                             HtmlWidget(TextUsecase.guideProduct(state.categories?.kode)),
-                            const SizedBox(height: 10,),
+                            const SizedBox(height: 20,),
                             Component.text(
                               "Buka 24 Jam",
                               textAlign: TextAlign.center,
                               fontWeight: FontWeight.bold,
+                              fontSize: 20,
                               colors: ColorPalette.primary
                             ),
                             const SizedBox(height: 20,),
@@ -77,14 +81,16 @@ class ProductDetialView extends StatelessWidget {
                     const SizedBox(height: 10,),
                     Card(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            const SizedBox(height: 10,),
                             Component.text(
                               "Lengkapi Data",
                               textAlign: TextAlign.center,
                               fontWeight: FontWeight.bold,
+                              fontSize: 25,
                               colors: ColorPalette.blackText
                             ),
                             const SizedBox(height: 20,),
@@ -115,7 +121,7 @@ class ProductDetialView extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                                 child: Component.text("Petunjuk", colors: ColorPalette.white),
                               ),
                             ),
@@ -126,52 +132,61 @@ class ProductDetialView extends StatelessWidget {
                     const SizedBox(height: 10,),
                     Card(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            const SizedBox(height: 20,),
                             Component.text(
                               "Pilih Nominal",
                               textAlign: TextAlign.center,
                               fontWeight: FontWeight.bold,
+                              fontSize: 25,
                               colors: ColorPalette.blackText
                             ),
-                            const SizedBox(height: 10,),
+                            const SizedBox(height: 20,),
                             Flexible(
                               child: GridView.builder(
                                 shrinkWrap: true,
                                 padding: const EdgeInsets.symmetric(horizontal: 0),
                                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                  // childAspectRatio: (1 / 1.5),
+                                  childAspectRatio: (1 / 0.5),
                                   crossAxisCount: 3,
                                   mainAxisSpacing: 5,
                                   crossAxisSpacing: 5
                                 ),
                                 itemCount: state.listProduct.length,
                                 itemBuilder: (BuildContext context, int index) {
+                                  bool chose = state.productCode == state.listProduct[index].productCode;
                                   return InkWell(
-                                    onTap: () {},
+                                    onTap: () => contextState.read<ProductDetailCubit>().onClikProduct(state.listProduct[index].productCode ?? ""),
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                                       decoration: BoxDecoration(
-                                        color: ColorPalette.red,
+                                        color: chose ? ColorPalette.red : ColorPalette.greyBackground,
+                                        // border: Border.all(
+                                        //   width: 1,
+                                        //   color: ColorPalette.primary
+                                        // ),
                                         borderRadius: BorderRadius.circular(10)
                                       ),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           Component.text(
                                             state.listProduct[index].layanan ?? "",
                                             textAlign: TextAlign.center,
-                                            // fontWeight: FontWeight.bold,
-                                            colors: ColorPalette.white
+                                            fontWeight: FontWeight.bold,
+                                            colors: chose ? ColorPalette.white : ColorPalette.blackText
                                           ),
                                           const SizedBox(height: 10,),
                                           Component.text(
                                             CoreFunction.moneyFormatter(state.listProduct[index].hargaSilver),
                                             textAlign: TextAlign.center,
-                                            // fontWeight: FontWeight.bold,
-                                            colors: ColorPalette.white
+                                            fontWeight: FontWeight.bold,
+                                            colors: chose ? ColorPalette.white : ColorPalette.blackText
                                           ),
                                         ],
                                       ),
@@ -184,7 +199,7 @@ class ProductDetialView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 100,),
                   ],
                 );
               default:

@@ -75,103 +75,109 @@ class HomeView extends StatelessWidget {
               case HomeStateStatus.loading:
                 return Component.loading();
               case HomeStateStatus.success:
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                  child: ListView(
-                    children: [
-                      // const SizedBox(
-                      //   height: 10,
-                      // ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        child: BannerAdvertiseView()
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Component.text(
-                          "Top Up",
-                          fontWeight: FontWeight.bold,
-                          colors: ColorPalette.black,
-                          fontSize: 20
+                return LayoutBuilder(
+                  builder: (context, constraints) {
+                    double width = constraints.maxWidth;
+                    double padding = (width - 800) / 2;
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: (width > 800) ? padding : 0),
+                      child: ListView(
+                      children: [
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          child: BannerAdvertiseView()
                         ),
-                      ),
-                      Container(
-                        height: 10,
-                        width: 20,
-                        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        color: ColorPalette.primary,
-                      ),
-                      GridView.builder(
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: (1 / 1.5),
-                          crossAxisCount: 4,
-                          mainAxisSpacing: 5,
-                          crossAxisSpacing: 5
+                        const SizedBox(
+                          height: 10,
                         ),
-                        itemCount: state.listCategory.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            onTap: (() =>  contextState.read<HomeCubit>().onNavDetail(state.listCategory[index])),
-                            child: Card(
-                              shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Expanded(
-                                    flex: 3,
-                                    child: ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10)
-                                      ),
-                                      child: Image.asset(
-                                        ImageUsecase.imageProduct(state.listCategory[index].kode),
-                                        height: double.infinity,
-                                        width: double.infinity,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Component.text(
-                                    state.listCategory[index].nama ?? "",
-                                    textAlign: TextAlign.center,
-                                    fontWeight: FontWeight.bold,
-                                    colors: ColorPalette.blackText
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: InkWell(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          color: ColorPalette.primary,
-                                          borderRadius: BorderRadius.circular(10)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Component.text(
+                            "Top Up",
+                            fontWeight: FontWeight.bold,
+                            colors: ColorPalette.black,
+                            fontSize: 20
+                          ),
+                        ),
+                        Container(
+                          height: 10,
+                          width: 20,
+                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          color: ColorPalette.primary,
+                        ),
+                        GridView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: (1 / 1.5),
+                            crossAxisCount: 4,
+                            mainAxisSpacing: 5,
+                            crossAxisSpacing: 5
+                          ),
+                          itemCount: state.listCategory.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return InkWell(
+                              onTap: (() =>  contextState.read<HomeCubit>().onNavDetail(state.listCategory[index])),
+                              child: Card(
+                                shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10)),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10)
                                         ),
-                                        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                                        child: Component.text("Top Up", colors: ColorPalette.white),
+                                        child: Image.asset(
+                                          ImageUsecase.imageProduct(state.listCategory[index].kode),
+                                          height: double.infinity,
+                                          width: double.infinity,
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ),
-                                  )
-                                ],
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Component.text(
+                                      state.listCategory[index].nama ?? "",
+                                      textAlign: TextAlign.center,
+                                      fontWeight: FontWeight.bold,
+                                      colors: ColorPalette.blackText
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: InkWell(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            color: ColorPalette.primary,
+                                            borderRadius: BorderRadius.circular(10)
+                                          ),
+                                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                          child: Component.text("Top Up", colors: ColorPalette.white),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 50,),
-                      Component.footer()
-                    ],
-                  ),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 50,),
+                        Component.footer()
+                      ],
+                    ),
+                    );
+                  }
                 );
               default:
                 return Container();

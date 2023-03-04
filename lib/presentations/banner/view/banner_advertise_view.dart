@@ -17,6 +17,15 @@ class BannerAdvertiseView extends StatelessWidget {
     "assets/images/banner_4.jpeg",
   ];
 
+  double bannerSize (double width) {
+    print(width);
+    if (width < 800) {
+      return width / 2.7;
+    } else {
+      return 300;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BannerCubit, BannerState>(
@@ -26,7 +35,7 @@ class BannerAdvertiseView extends StatelessWidget {
           children: [
             CarouselSlider(
               options: CarouselOptions(
-                height: SizeConfig.blockSizeHorizontal * 35,
+                height: bannerSize(MediaQuery.of(context).size.width),
                 initialPage: 0,
                 aspectRatio: 16 / 9,
                 enableInfiniteScroll: true,

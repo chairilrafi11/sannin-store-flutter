@@ -102,7 +102,7 @@ class HomeView extends StatelessWidget {
                 return LayoutBuilder(
                   builder: (context, constraints) {
                     double width = constraints.maxWidth;
-                    double padding = (width - 800) / 2;
+                    double padding = (width - 1200) / 2;
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: (width > 800) ? padding : 0),
                       child: ListView(
@@ -115,7 +115,7 @@ class HomeView extends StatelessWidget {
                           child: BannerAdvertiseView()
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 30,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -132,13 +132,16 @@ class HomeView extends StatelessWidget {
                           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                           color: ColorPalette.primary,
                         ),
+                        SizedBox(height: 30),
                         GridView(
                           shrinkWrap: true,
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: countTotalGrid(width),
-                            childAspectRatio: (1/1.3)
+                            childAspectRatio: (1/1),
+                            mainAxisSpacing: 50,
+                            crossAxisSpacing: 10
                           ),
                           children: state.listCategory.map((e){
                             return  LayoutBuilder(
@@ -152,7 +155,8 @@ class HomeView extends StatelessWidget {
                                   children: [
                                     Container(
                                       height: height,
-                                      margin: EdgeInsets.only(top: height / 4),
+                                      margin: EdgeInsets.only(top: height / 3),
+                                      // padding: const EdgeInsets.only(top: 10),
                                       child: Card(
                                         shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10)),
                                         child: Padding(
@@ -161,7 +165,7 @@ class HomeView extends StatelessWidget {
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               Expanded(
-                                                flex: 2,
+                                                flex: 3,
                                                 child: Container(
                                                   margin: const EdgeInsets.only(top: 10),
                                                   alignment: Alignment.center,
@@ -169,13 +173,12 @@ class HomeView extends StatelessWidget {
                                                     e.nama ?? "",
                                                     textAlign: TextAlign.center,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 12,
                                                     colors: ColorPalette.blackText
                                                   )
                                                 )
                                               ),
                                               Expanded(
-                                                flex: 1,
+                                                flex: 2,
                                                 child: InkWell(
                                                   child: Container(
                                                     alignment: Alignment.center,
@@ -184,7 +187,7 @@ class HomeView extends StatelessWidget {
                                                       color: ColorPalette.primary,
                                                       borderRadius: BorderRadius.circular(10)
                                                     ),
-                                                    margin: EdgeInsets.only(top: getButonMargin(width)),
+                                                    margin: EdgeInsets.only(top: getButonMargin(width), bottom: 10, left: 10, right: 10),
                                                     padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
                                                     child: Component.text(
                                                       "Top Up", 
@@ -203,8 +206,8 @@ class HomeView extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                       child: Image.asset(
                                         ImageUsecase.imageProduct(e.kode),
-                                        height: height / 2.5,
-                                        width: height / 2.5,
+                                        height: height / 2,
+                                        width: height / 2,
                                         // fit: BoxFit.cover,
                                       ),
                                     ),

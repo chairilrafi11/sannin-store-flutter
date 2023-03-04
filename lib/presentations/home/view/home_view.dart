@@ -103,125 +103,146 @@ class HomeView extends StatelessWidget {
                   builder: (context, constraints) {
                     double width = constraints.maxWidth;
                     double padding = (width - 1200) / 2;
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: (width > 800) ? padding : 0),
-                      child: ListView(
+                    return ListView(
                       children: [
-                        // const SizedBox(
-                        //   height: 10,
-                        // ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                          child: BannerAdvertiseView()
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Component.text(
-                            "Top Up",
-                            fontWeight: FontWeight.bold,
-                            colors: ColorPalette.black,
-                            fontSize: 20
-                          ),
-                        ),
-                        Container(
-                          height: 10,
-                          width: 20,
-                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                          color: ColorPalette.primary,
-                        ),
-                        SizedBox(height: 30),
-                        GridView(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: countTotalGrid(width),
-                            childAspectRatio: (1/1),
-                            mainAxisSpacing: 50,
-                            crossAxisSpacing: 10
-                          ),
-                          children: state.listCategory.map((e){
-                            return  LayoutBuilder(
-                            builder: (BuildContext context, BoxConstraints boxConstraints) {
-                              final height = boxConstraints.maxHeight;
-                              final width = boxConstraints.maxWidth;
-                              return InkWell(
-                                onTap: (() =>  contextState.read<HomeCubit>().onNavDetail(e)),
-                                child: Stack(
-                                  alignment: Alignment.topCenter,
-                                  children: [
-                                    Container(
-                                      height: height,
-                                      margin: EdgeInsets.only(top: height / 3),
-                                      // padding: const EdgeInsets.only(top: 10),
-                                      child: Card(
-                                        shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Expanded(
-                                                flex: 3,
-                                                child: Container(
-                                                  margin: const EdgeInsets.only(top: 10),
-                                                  alignment: Alignment.center,
-                                                  child: Component.text(
-                                                    e.nama ?? "",
-                                                    textAlign: TextAlign.center,
-                                                    fontWeight: FontWeight.bold,
-                                                    colors: ColorPalette.blackText
-                                                  )
-                                                )
-                                              ),
-                                              Expanded(
-                                                flex: 2,
-                                                child: InkWell(
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    width: double.infinity,
-                                                    decoration: BoxDecoration(
-                                                      color: ColorPalette.primary,
-                                                      borderRadius: BorderRadius.circular(10)
-                                                    ),
-                                                    margin: EdgeInsets.only(top: getButonMargin(width), bottom: 10, left: 10, right: 10),
-                                                    padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
-                                                    child: Component.text(
-                                                      "Top Up", 
-                                                      colors: ColorPalette.white,
-                                                      fontSize: 12
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.asset(
-                                        ImageUsecase.imageProduct(e.kode),
-                                        height: height / 2,
-                                        width: height / 2,
-                                        // fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ],
+                          padding: EdgeInsets.symmetric(horizontal: (width > 800) ? padding : 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            // const SizedBox(
+                            //   height: 10,
+                            // ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                              child: BannerAdvertiseView()
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            SizedBox(height: 20,),
+                            Card(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                                child: TextFormField(
+                                  decoration: Component.decorationNoBorder("Cari Produk"),
+                                  onChanged: (value) => contextState.read<HomeCubit>().onSearch(value),
                                 ),
-                              );
-                            }
-                          );
-                          }).toList(),
+                              ),
+                            ),
+                            SizedBox(height: 20,),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Component.text(
+                                "Top Up",
+                                fontWeight: FontWeight.bold,
+                                colors: ColorPalette.black,
+                                textAlign: TextAlign.left,
+                                fontSize: 20
+                              ),
+                            ),
+                            Container(
+                              height: 10,
+                              width: double.infinity,
+                              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                              color: ColorPalette.primary,
+                            ),
+                            SizedBox(height: 30),
+                            Flexible(
+                              child: GridView(
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: countTotalGrid(width),
+                                  childAspectRatio: (1/1),
+                                  mainAxisSpacing: 50,
+                                  crossAxisSpacing: 10
+                                ),
+                                children: state.listCategory.map((e){
+                                  return  LayoutBuilder(
+                                  builder: (BuildContext context, BoxConstraints boxConstraints) {
+                                    final height = boxConstraints.maxHeight;
+                                    final width = boxConstraints.maxWidth;
+                                    return InkWell(
+                                      onTap: (() =>  contextState.read<HomeCubit>().onNavDetail(e)),
+                                      child: Stack(
+                                        alignment: Alignment.topCenter,
+                                        children: [
+                                          Container(
+                                            height: height,
+                                            margin: EdgeInsets.only(top: height / 3),
+                                            // padding: const EdgeInsets.only(top: 10),
+                                            child: Card(
+                                              shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10)),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(5.0),
+                                                child: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Expanded(
+                                                      flex: 3,
+                                                      child: Container(
+                                                        margin: const EdgeInsets.only(top: 10),
+                                                        alignment: Alignment.center,
+                                                        child: Component.text(
+                                                          e.nama ?? "",
+                                                          textAlign: TextAlign.center,
+                                                          fontWeight: FontWeight.bold,
+                                                          colors: ColorPalette.blackText
+                                                        )
+                                                      )
+                                                    ),
+                                                    Expanded(
+                                                      flex: 2,
+                                                      child: InkWell(
+                                                        child: Container(
+                                                          alignment: Alignment.center,
+                                                          width: double.infinity,
+                                                          decoration: BoxDecoration(
+                                                            color: ColorPalette.primary,
+                                                            borderRadius: BorderRadius.circular(10)
+                                                          ),
+                                                          margin: EdgeInsets.only(top: getButonMargin(width), bottom: 10, left: 10, right: 10),
+                                                          padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                                                          child: Component.text(
+                                                            "Top Up", 
+                                                            colors: ColorPalette.white,
+                                                            fontSize: 12
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(10),
+                                            child: Image.asset(
+                                              ImageUsecase.imageProduct(e.kode),
+                                              height: height / 2,
+                                              width: height / 2,
+                                              // fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                );
+                                }).toList(),
+                              ),
+                            ),
+                          ],
+                        ),
                         ),
                         const SizedBox(height: 50,),
-                        Component.footer()
-                      ],
-                    ),
+                        Component.footer()],
                     );
                   }
                 );

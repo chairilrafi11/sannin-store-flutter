@@ -14,10 +14,12 @@ class HomeCubit extends Cubit<HomeState> {
     onGetCategory();
   }
 
+  List<Categories> categoryList = [];
+
   onGetCategory() async {
-    var response = await ProductRepository.categories();
-    CoreFunction.logPrint("Response", response.toString());
-    emit(state.copyWith(listCategory: response, homeStateStatus: HomeStateStatus.success));
+    categoryList.addAll(await ProductRepository.categories());
+    CoreFunction.logPrint("Response", categoryList.toString());
+    emit(state.copyWith(listCategory: categoryList, homeStateStatus: HomeStateStatus.success));
   }
 
   onNavDetail(Categories categories) {
@@ -25,6 +27,20 @@ class HomeCubit extends Cubit<HomeState> {
       create: (context) => ProductDetailCubit(categories: categories),
       child: const ProductDetialView(),
     ), RouterType.fade);
+  }
+
+  onSearch(String value){
+    CoreFunction.debouncer.debounce(() {
+      emit(state.copyWith(homeStateStatus: HomeStateStatus.loading));
+      if (value.isNotEmpty || value != "") {
+        List<Categories> listTemp = [...categoryList];
+        listTemp.removeWhere((element) => !element.nama!.toLowerCase().contains(value.toLowerCase()));
+        emit(state.copyWith(listCategory: listTemp, homeStateStatus: HomeStateStatus.success));
+      } else {
+        CoreFunction.logPrint("Category", categoryList);
+        emit(state.copyWith(listCategory: categoryList, homeStateStatus: HomeStateStatus.success));
+      }
+    });
   }
 
 }

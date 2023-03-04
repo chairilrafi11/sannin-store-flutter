@@ -5,6 +5,7 @@ import 'package:sanninstore/core/app/color_palette.dart';
 import 'package:sanninstore/core/app/constant.dart';
 import 'package:sanninstore/core/util/util.dart';
 import 'package:sanninstore/domain/models/payment_method.dart';
+import 'package:sanninstore/presentations/component/badge_decoration.dart';
 import 'package:sanninstore/presentations/component/component.dart';
 import 'package:sanninstore/presentations/component/image_usecase.dart';
 import 'package:sanninstore/presentations/component/text_usecase.dart';
@@ -156,7 +157,7 @@ class ProductDetialView extends StatelessWidget {
                                           Row(
                                             children: [
                                               Container(
-                                                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                                                 decoration: const BoxDecoration(
                                                   color: ColorPalette.red,
                                                   shape: BoxShape.circle
@@ -251,7 +252,7 @@ class ProductDetialView extends StatelessWidget {
                                           Row(
                                             children: [
                                               Container(
-                                                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                                                 decoration: const BoxDecoration(
                                                   color: ColorPalette.red,
                                                   shape: BoxShape.circle
@@ -309,26 +310,45 @@ class ProductDetialView extends StatelessWidget {
                                                       // ),
                                                       borderRadius: BorderRadius.circular(10)
                                                     ),
-                                                    child: Column(
+                                                    child: Row(
                                                       mainAxisSize: MainAxisSize.min,
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
                                                       children: [
-                                                        Component.text(
-                                                          state.listProduct[index].layanan ?? "",
-                                                          textAlign: TextAlign.center,
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize: 12,
-                                                          colors: chose ? ColorPalette.white : ColorPalette.blackText
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child: Image.asset(
+                                                            ImageUsecase.product(state.categories?.kode, state.listProduct[index].hargaGold!.toDouble()),
+                                                            height: double.infinity,
+                                                            width: double.infinity,
+                                                            fit: BoxFit.fitWidth,
+                                                          ),
                                                         ),
-                                                        const SizedBox(height: 10,),
-                                                        Component.text(
-                                                          CoreFunction.moneyFormatter(state.listProduct[index].hargaSilver),
-                                                          textAlign: TextAlign.center,
-                                                          fontSize: 14,
-                                                          // fontWeight: FontWeight.bold,
-                                                          fontFamily: Constant.montserratBold,
-                                                          colors: chose ? ColorPalette.white : ColorPalette.blackText
+                                                        Expanded(
+                                                          flex: 3,
+                                                          child: Column(
+                                                            mainAxisSize: MainAxisSize.min,
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                            children: [
+                                                              Component.text(
+                                                                state.listProduct[index].layanan ?? "",
+                                                                textAlign: TextAlign.center,
+                                                                fontWeight: FontWeight.bold,
+                                                                maxLines: 4,
+                                                                fontSize: 12,
+                                                                colors: chose ? ColorPalette.white : ColorPalette.blackText
+                                                              ),
+                                                              const SizedBox(height: 10,),
+                                                              Component.text(
+                                                                CoreFunction.moneyFormatter(state.listProduct[index].hargaSilver),
+                                                                textAlign: TextAlign.center,
+                                                                fontSize: 12,
+                                                                maxLines: 4,
+                                                                // fontWeight: FontWeight.bold,
+                                                                fontFamily: Constant.montserratBold,
+                                                                colors: chose ? ColorPalette.white : ColorPalette.blackText
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
@@ -368,7 +388,7 @@ class ProductDetialView extends StatelessWidget {
                                           Row(
                                             children: [
                                               Container(
-                                                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                                                 decoration: const BoxDecoration(
                                                   color: ColorPalette.red,
                                                   shape: BoxShape.circle
@@ -433,6 +453,100 @@ class ProductDetialView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                  Card(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(15.0),
+                                      decoration: BoxDecoration(
+                                        color: ColorPalette.white,
+                                        border: Border.all(
+                                          color: ColorPalette.primary,
+                                          width: 1
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: const Offset(0, 3), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(height: 10,),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                                                decoration: const BoxDecoration(
+                                                  color: ColorPalette.red,
+                                                  shape: BoxShape.circle
+                                                ),
+                                                child: Component.text(
+                                                  "4",
+                                                  fontFamily: Constant.montserratBold,
+                                                  fontSize: 25,
+                                                  colors: ColorPalette.white
+                                                ),
+                                              ),
+                                              const SizedBox(width: 20,),
+                                              Component.text(
+                                                "Beli",
+                                                textAlign: TextAlign.center,
+                                                fontFamily: Constant.montserratBold,
+                                                fontSize: 25,
+                                                colors: ColorPalette.blackText
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            width: double.infinity,
+                                            height: 10,
+                                            margin: const EdgeInsets.symmetric(vertical: 10),
+                                            decoration: BoxDecoration(
+                                              color: ColorPalette.primary,
+                                              borderRadius: BorderRadius.circular(10)
+                                            ),
+                                          ),
+                                          const SizedBox(height: 40,),
+                                          Component.text(
+                                            "No Whatsapp",
+                                            colors: ColorPalette.blackText
+                                          ),
+                                          const SizedBox(height: 10,),
+                                          TextFormField(
+                                            decoration: Component.decorationNoBorder('Masukan no whatsapp'),
+                                          ),
+                                          const SizedBox(height: 50,)
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => Component.toast("On Progress mase"),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      // width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: ColorPalette.primary,
+                                        borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(Icons.add_shopping_cart, color: Colors.white,),
+                                          const SizedBox(width: 10,),
+                                          Component.text("Beli Pesanan", colors: ColorPalette.white),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                   const SizedBox(height: 100,),
                                 ],
                               ),
@@ -472,17 +586,33 @@ class ProductDetialView extends StatelessWidget {
           onTap: () => contextState.read<ProductDetailCubit>().onClikPaymentMethod(listPaymentMethod[index].key) ,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            foregroundDecoration: chose ? const BadgeDecoration(
+              badgeColor:  ColorPalette.primary,
+              badgeSize: 30,
+              textSpan: TextSpan(
+                text: '✓',
+                style: TextStyle(color: Colors.white, fontSize: 12),
+              ),
+            ) : null,
             decoration: BoxDecoration(
               color: ColorPalette.white,
               border: Border.all(
                 color: chose ? ColorPalette.primary : ColorPalette.grey.withAlpha(100),
-                width: 1
+                width: 2
               ),
               borderRadius: BorderRadius.circular(10),
+              boxShadow: chose ? [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 2,
+                  blurRadius: 2,
+                  offset: const Offset(0, 1), // changes position of shadow
+                ),
+              ] : [],
             ),
             child: Image.asset(
               listPaymentMethod[index].image,
-              fit: BoxFit.fill,
+              fit: BoxFit.fitWidth,
             ),
           ),
         );

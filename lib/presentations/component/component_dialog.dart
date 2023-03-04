@@ -2,6 +2,8 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:sanninstore/core/app/app.dart';
 import 'package:sanninstore/core/util/size_config.dart';
+import 'package:sanninstore/core/util/util.dart';
+import 'package:sanninstore/presentations/component/component.dart';
 import 'package:sanninstore/presentations/component/jumping_dots.dart';
 
 class ComponentDialog {
@@ -32,6 +34,25 @@ class ComponentDialog {
           )  
         );
      },
+    );
+  }
+
+  static dialog(){
+    showDialog(
+      context: navGK.currentContext!,
+      builder: (BuildContext context) {
+        return AlertDialog( 
+          title: Component.text(
+            "Diskon buat kamu",
+            colors: ColorPalette.black
+          ),
+          content: Image.asset(
+            "assets/images/test.png",
+            height: SizeConfig.blockSizeVertical * 50,
+            width: SizeConfig.blockSizeVertical * 50,
+          )
+        );
+      },
     );
   }
 

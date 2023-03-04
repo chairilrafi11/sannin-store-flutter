@@ -57,4 +57,65 @@ class ImageUsecase {
     }
   }
 
+  static String product(String? category, double price) {
+    switch (category) {
+      case "mobile-legends":
+        return diamondMobileLegend(price);
+      case "call-of-duty-mobile":
+        return cp();
+      case "dragon-raja":
+        return coupon();  
+      case "pubg-mobile":
+        return uc(price);
+      case "genshin-impact2":
+        return crystal(price);
+      case "valorant2":
+        return valorant();  
+      default:
+        return "";
+    }
+  }
+
+  static String diamondMobileLegend(double price) {
+    if (price < 100000) {
+      return "assets/images/product/dm_small.png";
+    } else if (price < 300000) {
+      return "assets/images/product/dm_medium.png";
+    } else if (price <= 1000000) {
+      return "assets/images/product/dm_large.png";
+    } else {
+      return "assets/images/product/dm_extra_large.png";
+    }
+  }
+  
+  static String cp() {
+    return "assets/images/product/cp_small.jfif";
+  }
+  
+  static String coupon() {
+    return "assets/images/product/coupon.png";
+  }
+  
+  static String uc(double price) {
+    if (price < 100000) {
+      return "assets/images/product/uc_small.png";
+    } else if (price < 500000) {
+      return "assets/images/product/uc_medium.png";
+    } else {
+      return "assets/images/product/uc_large.jfif";
+    }
+  }
+  
+  static String crystal(double price) {
+    if (price < 100000) {
+      return "assets/images/product/genshin_crystal.png";
+    } else {
+      return "assets/images/product/genshin_crystal.png";
+    }
+  }
+  
+  static String valorant() {
+    return "assets/images/product/valorant_point.png";
+  }
+
 }

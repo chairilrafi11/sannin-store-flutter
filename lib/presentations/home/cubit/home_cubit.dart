@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sanninstore/core/util/util.dart';
 import 'package:sanninstore/domain/models/categories.dart';
 import 'package:sanninstore/domain/repository/product_repository.dart';
+import 'package:sanninstore/presentations/component/component_dialog.dart';
 import 'package:sanninstore/presentations/home/cubit/product_detail_cubit.dart';
 import 'package:sanninstore/presentations/home/view/product_detail_view.dart';
 
@@ -20,6 +21,7 @@ class HomeCubit extends Cubit<HomeState> {
     categoryList.addAll(await ProductRepository.categories());
     CoreFunction.logPrint("Response", categoryList.toString());
     emit(state.copyWith(listCategory: categoryList, homeStateStatus: HomeStateStatus.success));
+    ComponentDialog.dialog();
   }
 
   onNavDetail(Categories categories) {

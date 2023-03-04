@@ -45,7 +45,7 @@ class HomeView extends StatelessWidget {
         backgroundColor: ColorPalette.primary,
         centerTitle: true,
         title: Component.text(
-          "SANNIN STORE",
+          "",
           fontWeight: FontWeight.bold,
           fontSize: 25,
           colors: ColorPalette.white

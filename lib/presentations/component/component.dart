@@ -94,7 +94,7 @@ class Component {
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
-      borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
+      borderSide: const BorderSide(color: ColorPalette.primary),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),

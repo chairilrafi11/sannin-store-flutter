@@ -85,11 +85,11 @@ class Component {
     fillColor: ColorPalette.grey.withAlpha(30),
     filled: true,
     border: OutlineInputBorder(
-      borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
+      borderSide: const BorderSide(color: ColorPalette.primary),
       borderRadius: BorderRadius.circular(10)
     ),
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: ColorPalette.grey.withAlpha(30)),
+      borderSide: const BorderSide(color: ColorPalette.primary),
       borderRadius: BorderRadius.circular(10)
     ),
     focusedBorder: OutlineInputBorder(

@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:sanninstore/core/app/app.dart';
+import 'package:sanninstore/core/util/core_function.dart';
 import 'package:sanninstore/core/util/size_config.dart';
 import 'package:sanninstore/presentations/banner/cubit/banner_cubit.dart';
 import 'package:sanninstore/presentations/banner/view/banner_advertise_view.dart';
@@ -41,6 +42,27 @@ class _HomeViewState extends State<HomeView> {
       return 3;
     }
   }
+  
+  countAspecRatio(double width) {
+    CoreFunction.logPrint("Aspec Ratio", width);
+    if (width >= Constant.maxWIdth) {
+      return (1/1);
+    } else if (width >= 600){
+      return (1/1.2);
+    } else {
+      return (1/1.4);
+    }
+  }
+  
+  double fontSize(double width) {
+    if (width >= Constant.maxWIdth) {
+      return 15;
+    } else if (width >= 600){
+      return 13;
+    } else {
+      return 12;
+    }
+  }
 
   double getButonMargin (double width) {
     switch (countTotalGrid(width)) {
@@ -62,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
         backgroundColor: ColorPalette.primary,
         centerTitle: true,
         title: Component.text(
-          "",
+          "SANNIN STORE",
           fontWeight: FontWeight.bold,
           fontSize: 25,
           colors: ColorPalette.white
@@ -148,7 +170,7 @@ class _HomeViewState extends State<HomeView> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: countTotalGrid(width),
-                                  childAspectRatio: (1/1),
+                                  childAspectRatio: countAspecRatio(width),
                                   mainAxisSpacing: 50,
                                   crossAxisSpacing: 10
                                 ),
@@ -282,7 +304,7 @@ class _HomeViewState extends State<HomeView> {
                                   physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: countTotalGrid(width),
-                                    childAspectRatio: (1/1),
+                                    childAspectRatio: countAspecRatio(width),
                                     mainAxisSpacing: 50,
                                     crossAxisSpacing: 10
                                   ),
@@ -310,10 +332,11 @@ class _HomeViewState extends State<HomeView> {
                                                       Expanded(
                                                         flex: 3,
                                                         child: Container(
-                                                          margin: const EdgeInsets.only(top: 10),
-                                                          alignment: Alignment.center,
+                                                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                                                          alignment: Alignment.bottomCenter,
                                                           child: Component.text(
                                                             e.nama ?? "",
+                                                            fontSize: fontSize(width),
                                                             textAlign: TextAlign.center,
                                                             fontWeight: FontWeight.bold,
                                                             colors: ColorPalette.blackText

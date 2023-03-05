@@ -235,7 +235,7 @@ class Component {
         Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-          color: ColorPalette.blackText.withAlpha(150),
+          color: ColorPalette.primary,
           child: Component.text(
             "© 2023 Copyright SANNIN STORE",
             textAlign: TextAlign.center,

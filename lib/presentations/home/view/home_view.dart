@@ -256,165 +256,160 @@ class _HomeViewState extends State<HomeView> {
                   }
                 );
               case HomeStateStatus.success:
-                return WebSmoothScroll(
-                  controller: _scrollController,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      double width = constraints.maxWidth;
-                      double padding = (width - Constant.maxWIdth) / 2;
-                      return ListView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        controller: _scrollController,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: (width > Constant.maxWIdth) ? padding : 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              Container(
-                                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                                child: BannerAdvertiseView()
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              // SizedBox(height: 20,),
-                              Card(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                                  child: TextFormField(
-                                    decoration: Component.decorationNoBorder("Cari Produk"),
-                                    onChanged: (value) => contextState.read<HomeCubit>().onSearch(value),
-                                  ),
+                return LayoutBuilder(
+                  builder: (context, constraints) {
+                    double width = constraints.maxWidth;
+                    double padding = (width - Constant.maxWIdth) / 2;
+                    return ListView(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: (width > Constant.maxWIdth) ? padding : 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            // const SizedBox(
+                            //   height: 10,
+                            // ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                              child: BannerAdvertiseView()
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            // SizedBox(height: 20,),
+                            Card(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                                child: TextFormField(
+                                  decoration: Component.decorationNoBorder("Cari Produk"),
+                                  onChanged: (value) => contextState.read<HomeCubit>().onSearch(value),
                                 ),
                               ),
-                              const SizedBox(height: 30,),
-                              Container(
-                                alignment: Alignment.centerLeft,
-                                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                child: Component.text(
-                                  "Top Up",
-                                  // fontWeight: FontWeight.bold,
-                                  fontFamily: Constant.montserratExtraBold,
-                                  colors: ColorPalette.black,
-                                  textAlign: TextAlign.left,
-                                  fontSize: 30
+                            ),
+                            const SizedBox(height: 30,),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Component.text(
+                                "Top Up",
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: Constant.montserratExtraBold,
+                                colors: ColorPalette.black,
+                                textAlign: TextAlign.left,
+                                fontSize: 30
+                              ),
+                            ),
+                            Container(
+                              height: 10,
+                              width: double.infinity,
+                              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                              color: ColorPalette.primary,
+                            ),
+                            const SizedBox(height: 30),
+                            Flexible(
+                              child: GridView(
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: countTotalGrid(width),
+                                  childAspectRatio: countAspecRatio(width),
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 1
                                 ),
-                              ),
-                              Container(
-                                height: 10,
-                                width: double.infinity,
-                                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                                color: ColorPalette.primary,
-                              ),
-                              const SizedBox(height: 30),
-                              Flexible(
-                                child: GridView(
-                                  shrinkWrap: true,
-                                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: countTotalGrid(width),
-                                    childAspectRatio: countAspecRatio(width),
-                                    mainAxisSpacing: 10,
-                                    crossAxisSpacing: 1
-                                  ),
-                                  children: state.listCategory.map((e){
-                                    return  LayoutBuilder(
-                                    builder: (BuildContext context, BoxConstraints boxConstraints) {
-                                      final height = boxConstraints.maxHeight;
-                                      final width = boxConstraints.maxWidth;
-                                      return InkWell(
-                                        onTap: (() =>  contextState.read<HomeCubit>().onNavDetail(e)),
-                                        child: Container(
-                                          color: Colors.transparent,
-                                          child: Stack(
-                                            alignment: Alignment.bottomCenter,
-                                            children: [
-                                              Card(
-                                                shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10)),
-                                                child: SizedBox(
-                                                  width: double.infinity,
-                                                  height: height * 0.7,
-                                                ),
+                                children: state.listCategory.map((e){
+                                  return  LayoutBuilder(
+                                  builder: (BuildContext context, BoxConstraints boxConstraints) {
+                                    final height = boxConstraints.maxHeight;
+                                    final width = boxConstraints.maxWidth;
+                                    return InkWell(
+                                      onTap: (() =>  contextState.read<HomeCubit>().onNavDetail(e)),
+                                      child: Container(
+                                        color: Colors.transparent,
+                                        child: Stack(
+                                          alignment: Alignment.bottomCenter,
+                                          children: [
+                                            Card(
+                                              shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10)),
+                                              child: SizedBox(
+                                                width: double.infinity,
+                                                height: height * 0.7,
                                               ),
-                                              Padding(
-                                                padding: const EdgeInsets.all(5.0),
-                                                child: Column(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 2,
-                                                      child: ClipRRect(
-                                                        borderRadius: BorderRadius.circular(10),
-                                                        child: Image.asset(
-                                                          ImageUsecase.imageProduct(e.kode),
-                                                          height: double.infinity,
-                                                          // width: imageSize(height),
-                                                          fit: BoxFit.fitHeight,
-                                                          // fit: BoxFit.cover,
-                                                        ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(5.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: ClipRRect(
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      child: Image.asset(
+                                                        ImageUsecase.imageProduct(e.kode),
+                                                        height: double.infinity,
+                                                        // width: imageSize(height),
+                                                        fit: BoxFit.fitHeight,
+                                                        // fit: BoxFit.cover,
                                                       ),
                                                     ),
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: Container(
-                                                        margin: const EdgeInsets.only(top: 5, bottom: 5),
-                                                        alignment: Alignment.bottomCenter,
-                                                        child: Component.text(
-                                                          e.nama ?? "",
-                                                          fontSize: fontSize(width),
-                                                          textAlign: TextAlign.center,
-                                                          fontWeight: FontWeight.bold,
-                                                          colors: ColorPalette.blackText
-                                                        )
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      margin: const EdgeInsets.only(top: 5, bottom: 5),
+                                                      alignment: Alignment.bottomCenter,
+                                                      child: Component.text(
+                                                        e.nama ?? "",
+                                                        fontSize: fontSize(width),
+                                                        textAlign: TextAlign.center,
+                                                        fontWeight: FontWeight.bold,
+                                                        colors: ColorPalette.blackText
                                                       )
-                                                    ),
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: InkWell(
-                                                        child: Container(
-                                                          alignment: Alignment.center,
-                                                          width: double.infinity,
-                                                          decoration: BoxDecoration(
-                                                            color: ColorPalette.primary,
-                                                            borderRadius: BorderRadius.circular(10)
-                                                          ),
-                                                          margin: const EdgeInsets.only(top:10, bottom: 10, left: 10, right: 10),
-                                                          padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
-                                                          child: Component.text(
-                                                            "Top Up", 
-                                                            colors: ColorPalette.white,
-                                                            fontSize: 12
-                                                          ),
+                                                    )
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: InkWell(
+                                                      child: Container(
+                                                        alignment: Alignment.center,
+                                                        width: double.infinity,
+                                                        decoration: BoxDecoration(
+                                                          color: ColorPalette.primary,
+                                                          borderRadius: BorderRadius.circular(10)
+                                                        ),
+                                                        margin: const EdgeInsets.only(top:10, bottom: 10, left: 10, right: 10),
+                                                        padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                                                        child: Component.text(
+                                                          "Top Up", 
+                                                          colors: ColorPalette.white,
+                                                          fontSize: 12
                                                         ),
                                                       ),
-                                                    )
-                                                  ],
-                                                ),
+                                                    ),
+                                                  )
+                                                ],
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      );
-                                    }
-                                  );
-                                  }).toList(),
-                                ),
+                                      ),
+                                    );
+                                  }
+                                );
+                                }).toList(),
                               ),
-                            ],
-                          ),
-                          ),
-                          const SizedBox(height: 50,),
-                          Component.footer()],
-                      );
-                    }
-                  ),
+                            ),
+                          ],
+                        ),
+                        ),
+                        const SizedBox(height: 50,),
+                        Component.footer()],
+                    );
+                  }
                 );
               default:
                 return Container();

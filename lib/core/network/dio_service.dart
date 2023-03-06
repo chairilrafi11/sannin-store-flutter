@@ -1,14 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:sanninstore/core/app/constant.dart';
 import 'package:sanninstore/core/error/error_handling_response.dart';
-import 'package:sanninstore/core/util/core_function.dart';
 import 'package:sanninstore/core/util/util.dart';
 import 'package:sanninstore/presentations/component/component_dialog.dart';
 
@@ -117,11 +115,11 @@ class DioService {
             //? Stop Loading From Layout
             if (stopLoadingMethod != null) stopLoadingMethod();
 
-            if (e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout || e.type == DioErrorType.sendTimeout) {
+            if (e.type == DioErrorType.connectionTimeout || e.type == DioErrorType.receiveTimeout || e.type == DioErrorType.sendTimeout) {
               // ComponentDialog.info("Request Time Out", "Pastikan handphone anda memiliki koneksi internet");
-            } else if (e.type == DioErrorType.other) {
+            } else if (e.type == DioErrorType.unknown) {
               // ComponentDialog.info("Tidak dapat terhubung", "Pastikan handphone anda memiliki koneksi internet");
-            } else if (e.type == DioErrorType.response) {
+            } else if (e.type == DioErrorType.badResponse) {
               CoreFunction.logPrint("Error", e.toString());
               CoreFunction.logPrint("Error Data", e.response.toString());
               ErrorResponse errorResponse = ErrorResponse.fromJson(e.response?.data);
@@ -143,7 +141,7 @@ class DioService {
             }
 
             handler.next(e);
-            throw e.error;
+            throw e.error!;
           },
         ),
       );
@@ -186,9 +184,9 @@ class DioService {
   static Future<BaseOptions> baseOptions(bool isToken) async {
     return BaseOptions(
       baseUrl: baseURL(AppConfig.production),
-      connectTimeout: Constant.timeRequestApi.inMilliseconds,
-      receiveTimeout: Constant.timeRequestApi.inMilliseconds,
-      sendTimeout: Constant.timeRequestApi.inMilliseconds,
+      connectTimeout: Constant.timeRequestApi,
+      receiveTimeout: Constant.timeRequestApi,
+      sendTimeout: Constant.timeRequestApi,
       headers: isToken
         ? {
             'Cache-Control': AppConfig.cacheControl,
